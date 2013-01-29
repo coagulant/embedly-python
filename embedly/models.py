@@ -4,12 +4,15 @@ Models
 Creates a sudo model class that makes it easy to access attributes
 """
 from __future__ import unicode_literals
+import copy
+
+
 class AttrDict(object):
     """
     UserDict is a pain in the ass. Let's just make our own.
     """
     def __init__(self, data=None):
-        self._data = data
+        self._data = copy.deepcopy(data)
         if data is None:
             data = {}
 
