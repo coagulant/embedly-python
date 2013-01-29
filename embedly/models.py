@@ -9,6 +9,7 @@ class AttrDict(object):
     UserDict is a pain in the ass. Let's just make our own.
     """
     def __init__(self, data=None):
+        self._data = data
         if data is None:
             data = {}
 
@@ -27,7 +28,7 @@ class AttrDict(object):
         self.data = data
 
     def __getattr__(self, name):
-        if name in ['data', 'method']:
+        if name in ['data', 'method', '_data']:
             return object.__getattr__(self, name)
         try:
             return self.data[name]
@@ -35,7 +36,7 @@ class AttrDict(object):
             return None
 
     def __setattr__(self, name, value):
-        if name in ['data', 'method']:
+        if name in ['data', 'method', '_data']:
             object.__setattr__(self, name, value)
         else:
             self.data[name] = value
